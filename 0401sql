@@ -1,0 +1,12 @@
+--오름차순, 내림차순 사용
+SELECT employee_id, first_name, last_name 
+FROM EMPLOYEES
+ORDER BY employee_id DESC, FIRST_NAME ASC;
+
+--특정 열만 출력
+SELECT JOB_ID
+FROM EMPLOYEES;
+
+--열의 이름을 변경할 때는 AS를 사용
+SELECT EMPLOYEE_ID AS 사원번호, FIRST_NAME AS 이름, LAST_NAME AS 성
+FROM EMPLOYEES;
