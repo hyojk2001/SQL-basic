@@ -1,0 +1,113 @@
+select * 
+from employees;
+
+SELECT employee_id, first_name, last_name
+FROM employees
+ORDER BY employee_id DESC;
+--ORDER BY : 어떤 것을 기준으로 오름/내림차순일지 결정
+
+SELECT employee_id AS id, first_name AS 이름, last_name AS 성
+FROM employees
+ORDER BY employee_id DESC;
+--이름붙이기 : (속성) AS (바꿀속성)
+
+SELECT employee_id, first_name || last_name
+FROM employees
+ORDER BY employee_id DESC;
+--열을 붙여서 표시 : A열 || B열
+
+SELECT EMPLOYEE_ID, 
+    FIRST_NAME||' '||LAST_NAME,
+    EMAIL||'@'||'COMPANY.COM'
+    FROM EMPLOYEES;
+--문자를 붙이거나 글자를 변경하는 방법
+
+SELECT EMPLOYEE_ID AS 사원번호, 
+    SALARY AS 급여, 
+    SALARY+500 AS 추가급여,
+    SALARY-100 AS 인하급여,
+    (SALARY*1.1)/2 AS 조정급여
+    FROM EMPLOYEES;
+--데이터의 변형 및 계산
+
+SELECT *
+FROM EMPLOYEES
+WHERE EMPLOYEE_ID > 100 or FIRST_NAME = 'Bruce';
+--WHERE 조건절 사용
+
+SELECT *
+FROM EMPLOYEES WHERE SALARY BETWEEN 10000 AND 20000;
+--BETWEEN A AND B : A와 B 사이의 값
+
+SELECT *
+FROM EMPLOYEES
+WHERE SALARY IN (10000,17000,24000);
+--IN은 =와 유사하지만 =은 하나의 조건만을 지정, IN은 여러개의 값을 지정
+
+SELECT *
+FROM EMPLOYEES WHERE JOB_ID LIKE 'AD___';
+--LIKE : % 등의 기호와 함께 사용. 조회 조건값이 명확하지 않을때 사용한다. 
+-- %는 모든 문자라는 의미, _는 '한 글자' 라는 의미
+-- 'AD%' 라고 하면 AD 뒤에 어떤 글자가 몇 글자가 오든 상관이 없다는 의미
+-- '%AD' 라고 하면 몇 글자이든 끝이 AD로 끝나기만 하면 된다는 의미
+-- '%AD%' 라고 하면 몇 글자이든 단어 중간에 AD라는 글자가 들어오기만 하면 된다는 의미
+-- 'AD_' 라고 하면 AD 뒤에 어떤 글자든 딱 한 글자만 올 수 있다는 의미
+
+SELECT *
+FROM EMPLOYEES
+WHERE MANAGER_ID IS NULL;
+-- IS NULL : 데이터 값이 NULL인 경우를 조회. 0이나 공백이 아닌 '아무것도 없는값'을 NULL이라 한다.
+
+SELECT *
+FROM EMPLOYEES
+WHERE SALARY > 4000 AND JOB_ID = 'IT_PROG';
+--AND : 동시에 만족, OR : 조건들 중 하나만 만족
+
+SELECT *
+FROM EMPLOYEES
+WHERE EMPLOYEE_ID <> 105;
+-- 속성 <> 조건 : 해당 속성 중에 조건에 '해당하지 않는 것' 을 모두 가져오기
+
+SELECT *
+FROM EMPLOYEES
+WHERE MANAGER_ID IS NOT NULL;
+-- NOT NULL : NULL 값이 아닌 것을 모두 가져오기
+-- IS NULL <> IS NOT NULL
+
+SELECT LAST_NAME,
+    LOWER(LAST_NAME) LOWER적용,
+    UPPER(LAST_NAME) UPPER적용,
+    EMAIL,
+    INITCAP(EMAIL) INITCAP적용
+FROM EMPLOYEES;
+-- LOWER(속성) 이름 : 속성을 소문자로 바꾸고 해당 속성의 이름 변경, UPPER(속성) : 속성을 대문자로 하고 해당 속성의 이름 변경
+-- INITCAP(속성) : 해당 속성에서 소문자는 대문자, 대문자는 소문자로 변환
+
+SELECT JOB_ID, SUBSTR(JOB_ID, 1, 4)
+FROM EMPLOYEES;
+--SUBSTR(속성, A,B) : 해당 속성의 정보들을 A번째부터 B번째까지만 출력
+
+SELECT JOB_ID,
+    REPLACE(JOB_ID, 'ACCOUNT', 'ACCNT') 적용결과
+FROM EMPLOYEES;
+-- REPLACE(속성, 기준자료, 바꿀자료) : 해당 속성에서 기준 자료를 바꿀자료로 변경
+
+SELECT FIRST_NAME, 
+    LPAD(FIRST_NAME, 12, '*') 적용결과
+FROM EMPLOYEES;
+--LPAD(속성, 숫자, A) : 해당 속성의 왼쪽을 기준으로 숫자만큼의 자리를 만들고, 나머지는 왼쪽에서부터 A로 채워준다
+
+SELECT FIRST_NAME, 
+    RPAD(FIRST_NAME, 12, '*') 적용결과
+FROM EMPLOYEES;
+-- RPAD(속성, 숫자, A) : 해당 속성의 오른쪽을 기준으로 숫자만큼의 자리를 만들고, 나머지는 오른쪽에서부터 B로 채워준다
+
+SELECT JOB_ID,
+    LTRIM(JOB_ID,'F') LTRIM적용결과,
+    RTRIM(JOB_ID,'T') RTRIM적용결과
+FROM EMPLOYEES;
+-- 왼쪽에서부터 처음 'F' 나 오른쪽에서부터 'T'를 만나면 해당 문자를 없앤다
+
+SELECT 'START'||TRIM('  - SPACE -  ')||'END' 제거된_공백
+FROM DUAL;
+-- TRIM(문자열) : 해당 문자열의 중간에 있는 공백을 제외한 모든 공백을 제거한다.
